@@ -1,0 +1,60 @@
+
+<div id="preloder" >
+    <div class="loader"> </div>
+</div>
+
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <div class="card card-plain">
+                <h4 class="card-title">Selecione a loja</h4>
+                <div class="dropdown boostrap-select">
+                    <select class="selectpicker" data-style="select-with-transition" title="Single Select"
+                            data-size="7">
+                        <option disabled>Choose city</option>
+                        <% for(var i = 0; i < warehouses.length; i++) { %>
+                            <option
+                            <% if(localStorage.getItem('warehouse') == warehouses[i]['id']){ %> selected
+                                                                                                <% } %>value="<%= warehouses[i]['id'] %>"><%= warehouses[i]['name'] %></option>
+                        <% } %>
+                    </select>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-6 mb-4">
+            <div class="card card-plain">
+                <h4 class="card-title">Selecione a impressora</h4>
+                <div class="dropdown boostrap-select">
+                    <select class="selectpickerprinter" data-style="select-with-transition" title="Single Select"
+                            data-size="7">
+                        <option disabled>Choose city</option>
+                        <% for(var i = 0; i < printers.length; i++) { %>
+                            <option  <% if(localStorage.getItem('printer') == printers[i]['name']){ %> selected
+                                    <% } %> value="<%= printers[i]['name'] %>"><%= printers[i]['name'] %></option>
+                        <% } %>
+                    </select>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-6 mb-4">
+            <div class="card card-plain">
+                <h4 class="card-title">Tamanho do buffer</h4>
+                <div class="row">
+                    <div class="col-sm-10">
+                        <div class="form-group">
+                            <input type="text" id="bufferSize" name="bufferSize" class="form-control" value="<%= localStorage.getItem('bufferSize')%>">
+                            <span class="form-text">Configura o espaçamento do texto na impressora</span>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/js/settings.js"></script>

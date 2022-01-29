@@ -1,0 +1,54 @@
+<div id="preloder">
+    <div class="loader"></div>
+</div>
+
+
+<div class="container-fluid" style="max-height: 90vh;">
+    <div class="container-fluid" id="orderData">
+        <div class="card">
+            <div class="card-body">
+                <table id="dataOrder" class="display" style="width:100%">
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th>Nome do Cliente</th>
+                        <th>Status</th>
+                        <th>Loja</th>
+                        <th>Ações</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <% orderData.forEach(function (value, key) { %>
+                        <tr>
+                            <td><%= value.order.order_number %></td>
+                            <td><%= value.customer.firstname %>  <%= value.customer.lastname %></td>
+                            <td><span class="badge badge-primary"
+                                      style="background-color: <%= value.order.order_state.color %>"> <%= value.order.order_state.name %></span>
+                            </td>
+                            <td><%= value.warehouse.name %></td>
+                            <td><a class="btn btn-primary btn-sm animation-on-hover" target="_blank"
+                                   href="<%= host %>/backend/offline/mall/orders/show/<%= value.order.id %>">Acessar Pedido</a>
+                            </td>
+                        </tr>
+                    <% }) %>
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <th></th>
+                        <th>Nome do Cliente</th>
+                        <th>Status</th>
+                        <th>Loja</th>
+                        <th>Ações</th>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/js/consult.js"></script>
+<script>
+    $(function () {
+        var ps1 = new PerfectScrollbar('.container-fluid');
+    })
+</script>

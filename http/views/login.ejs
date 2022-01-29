@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<%- include('include/head'); %>
+<html lang="en">
+<body class="login-page">
+
+
+<div class="login">
+    <h1>COM</h1>
+    <small>Commerce Order Manager</small>
+    <form id="login" method="post">
+        <input type="text" name="username" placeholder="Username" required="required" />
+        <input type="password" name="password" placeholder="Password" required="required" />
+        <input type="checkbox" id="remember" name="remember">
+        <label for="remember">Lembrar</label>
+        <button type="submit" class="btn btn-primary btn-block btn-large">Logar</button>
+    </form>
+</div>
+
+<%- include('include/footer'); %>
+<script src="/js/login.js"></script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<div class="container-fluid">
+    <div class="notification-ui_dd-content col-md-6" id="notificationList" style="max-height: 80vh">
+        <% notify.forEach(function (value, key) { %>
+            <div class="notification-list notification-list--unread">
+                <div class="notification-list_content">
+                    <div class="notification-list_img">
+                        <i class='bx bx-cog' style="font-size: 46px"></i>
+                    </div>
+                    <div class="notification-list_detail">
+                        <p><%= value.subject %></p>
+                        <p class="text-muted"><%= value.message %></p>
+                        <p class="text-muted"><small class="time" data-time="<%= value.created_at %>"></small></p>
+                    </div>
+                </div>
+                <div class="notification-list_feature-img">
+                    <i class='bx bx-trash' data-delete="" style="cursor: pointer;font-size: 20px"></i>
+                </div>
+            </div>
+        <% }) %>
+
+    </div>
+</div>
+<script>
+    $('.time').each(function () {
+        var $data = $(this).data('time')
+        $(this).html(moment($data).fromNow())
+    })
+    $(function () {
+        var ps1 = new PerfectScrollbar('#notificationList');
+    })
+</script>

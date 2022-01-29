@@ -1,0 +1,144 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    font-size: 10pt;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #949AA7;
+}
+
+.mainApp {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border: 1px solid #1b1D23;
+
+    -webkit-box-sizing: border-box;
+}
+
+.mainApp > .topBar {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 40px;
+    border-bottom: 3px solid #1b1D23;
+    background-color: #1b1D23;
+    -webkit-user-select: none;
+}
+
+.topBar > .titleBar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.topBar > .titleBar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+}
+
+.titleBar > .toggleButton {
+    width: 45px;
+    height: 40px;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    transition: 0.2s;
+    cursor: pointer;
+    color: #949AA7;
+}
+
+.titleBar > .appIcon {
+    margin-left: 15px;
+}
+
+.titleBar > .toggleButton:hover {
+    background-color: #272c36;
+}
+
+.titleBar > .toggleButton:active {
+    background-color: #4f9fee;
+    color: #272c36;
+}
+
+.title > i {
+    margin-left: 10px;
+}
+
+.titleBar > .title {
+    margin-left: 10px;
+    width: 100%;
+    line-height: 30px;
+    margin-top: 5px;
+    padding-bottom: 5px;
+    -webkit-app-region: drag;
+}
+
+.topBar > .titleBarsBtns {
+    display: flex;
+    flex-direction: row;
+    width: 120px;
+    height: 40px;
+}
+
+.titleBarsBtns > .topBtn {
+    width: 40px;
+    height: 40px;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: center;
+    transition: 0.2s;
+    cursor: pointer;
+}
+
+.titleBarsBtns > .topBtn:hover {
+    background-color: #272c36;
+}
+
+.titleBarsBtns > .topBtn:active {
+    background-color: #4f9fee;
+    color: #1b1D23;
+}
+
+.titleBarsBtns > .minimizeBtn {
+    font-size: 10pt;
+    color: #949AA7;
+}
+
+.titleBarsBtns > .maximizeBtn {
+    font-size: 10pt;
+    color: #949AA7;
+}
+
+.titleBarsBtns > .closeBtn {
+    font-size: 10pt;
+    color: #949AA7;
+}
+
+.mainApp > .contentArea {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+}
+
+.contentArea > .leftMenu {
+    width: 0px;
+    height: 100vh;
+    background-color: #1b1D23 !important;
+    transition: 0.4s;
+}
+
+.contentArea > .contentPages {
+    width: 100%;
+    height: 100%;
+    -webkit-box-align: center;
+    -webkit-box-pack: center;
+    display: -webkit-box;
+}
