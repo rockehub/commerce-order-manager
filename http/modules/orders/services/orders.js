@@ -1,9 +1,10 @@
 const fetch = require('node-fetch')
 const base64 = require('base-64')
-const { getPrinter, printOut } = require('../../printer/services/printer')
+const { getPrinter, printOut, printNoteOut } = require('../../printer/services/printer')
 const { printerOrderData } = require('../data/printerOrderData')
+const { printOrderNote } = require("../data/printerNoteData");
 
-async function orders (warehouse, status, page, all) {
+async function orders(warehouse, status, page, all) {
     let data = await fetch(appHost + '/api/orders/' + warehouse + '/{"status":' + status + '}/' + page + '/' + all, {
         method: 'GET',
         headers: {
@@ -24,7 +25,7 @@ async function orders (warehouse, status, page, all) {
     return $data
 }
 
-async function printOrder (order, printOption) {
+async function printOrder(order, printOption) {
     return await printerOrderData(order, printOption).then(async (orderData) => {
         return await printOut(orderData).then(() => {
             return true
@@ -35,7 +36,22 @@ async function printOrder (order, printOption) {
     })
 }
 
-async function order (order) {
+async function printNote(order) {
+    return await printOrderNote(order).then(async (noteData) => {
+        console.log('chegou agora '+ noteData);
+        return await printNoteOut(noteData).then(() => {
+            return true
+        }).catch((err) => {
+            console.log(err)
+            return false
+        })
+    }).catch((err)=>{
+        console.log(err)
+      throw new Error(err.message)
+    })
+}
+
+async function order(order) {
     let data = await fetch(appHost + '/api/order/' + order, {
         method: 'GET',
         headers: {
@@ -56,7 +72,7 @@ async function order (order) {
     return $data
 }
 
-async function changeStatus (order, state) {
+async function changeStatus(order, state) {
     let data = await fetch(appHost + '/api/order/' + order + '/' + state, {
         method: 'PUT',
         headers: {
@@ -77,4 +93,4 @@ async function changeStatus (order, state) {
     return $data
 }
 
-module.exports = { orders, printOrder, order, changeStatus }
+module.exports = { orders, printOrder, order, changeStatus,printNote }

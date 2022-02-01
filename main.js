@@ -120,7 +120,8 @@ function createWindow() {
         title: productName,
         webPreferences: {
             nodeIntegration: true,
-            contextIsolation: false
+            contextIsolation: false,
+            devTools: isDev
         },
         frame: !isWindows //Remove frame to hide default menu
     });
