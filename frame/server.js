@@ -4,7 +4,7 @@ const jspack = require('../package.json')
 global.appVersion = jspack.version
 const _ = require('lodash')
 const maxResBtn = document.getElementById('maxResBtn')
-let expressAppUrl = 'http://locahost:3326'
+let expressAppUrl = 'http://localhost:3327'
 
 spanversion = document.getElementById('appVersion')
 spanversion.innerHTML = appVersion;

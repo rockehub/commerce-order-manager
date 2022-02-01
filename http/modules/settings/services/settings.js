@@ -3,7 +3,7 @@ const base64 = require('base-64')
 const nodePrinter = require('@thiagoelg/node-printer')
 
 
-async function warehouses () {
+async function warehouses() {
     let data = await fetch(appHost + '/api/warehouses', {
         method: 'GET',
         headers: {
@@ -25,8 +25,12 @@ async function warehouses () {
     return $data
 }
 
-async function printers () {
+async function printers() {
     return await nodePrinter.getPrinters()
+}
+
+function getPrinterSize() {
+
 }
 
 module.exports = { warehouses, printers }

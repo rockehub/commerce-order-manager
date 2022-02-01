@@ -350,9 +350,10 @@ $('#orders').on('click', '.print', function (e) {
         title: 'O que deseja Imprimir?',
         input: 'select',
         inputOptions: {
-            1: 'Todas as informações', // How do I dynamically set value?
+            1: 'Todas as informações',
             2: 'Informações de pedido',
-            3: 'Informações de Entrega'
+            3: 'Informações de Entrega',
+            4: 'imprimir bilhete'
         },
         inputAttributes: {
             autocapitalize: 'off'

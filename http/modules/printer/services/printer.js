@@ -3,8 +3,10 @@ const PrinterTypes = require('node-thermal-printer').types
 const nodePrinter = require('@thiagoelg/node-printer')
 const { LocalStorage } = require('node-localstorage')
 const localStorage = new LocalStorage('../../files')
+const fs = require('fs');
+const { print } = require("pdf-to-printer");
 
-async function getPrinter () {
+async function getPrinter() {
     const printer = new ThermalPrinter({
         type: PrinterTypes.EPSON,
         width: localStorage.getItem('bufferSize'), // Printer type: 'star' or 'epson'
@@ -18,7 +20,7 @@ async function getPrinter () {
     return printer
 }
 
-async function printOut (buffer) {
+async function printOut(buffer) {
     const selectedPrinter = localStorage.getItem('printer')
     if (selectedPrinter == null) {
         throw new Error('printer has not been selected')
@@ -27,13 +29,36 @@ async function printOut (buffer) {
         data: buffer.getBuffer(),
         printer: selectedPrinter, // Printer name, if missing then will print to default printer
         type: 'RAW',
-        success: function (jobID) {
+        success: function(jobID) {
             console.log('sent to printer with ID: ' + jobID)
         },
-        error: function (err) {
+        error: function(err) {
             throw new Error(err)
         }
     })
 }
 
-module.exports = { getPrinter, printOut }
+
+async function printNoteOut(buffer) {
+    const selectedPrinter = localStorage.getItem('ticketPrinter')
+    let options = {
+        data: fs.readFileSync(buffer),
+        outputFormat: process.argv[2] || 'EMF' // could be a item from pdfium.getSupportedOutputFormats();
+    };
+    if (selectedPrinter == null) {
+        throw new Error('printer has not been selected')
+    } else {
+        if (!fs.existsSync(buffer)) {
+            throw new Error('o Arquivo não existe')
+        } else {
+            const options = {
+                printer: selectedPrinter,
+            };
+
+            print(buffer, options).then(console.log);
+        }
+    }
+
+}
+
+module.exports = { getPrinter, printOut, printNoteOut }

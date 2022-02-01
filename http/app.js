@@ -11,6 +11,8 @@ const bodyParser = require('body-parser')
 const routes = require('./routes')
 const app = express()
 const session = require('express-session')
+const fileUpload = require('express-fileupload');
+
 const authenticateController = require('./modules/authenticate/controller/authenticateController')
 const homepageController = require('./modules/homepage/controller/homepageController')
 const settingsController = require('./modules/settings/controller/settingsController')
@@ -28,6 +30,9 @@ app.use(session({
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
 
+app.use(fileUpload({
+    createParentPath: true
+}));
 
 app.use(logger('dev'))
 app.use(bodyParser.json())

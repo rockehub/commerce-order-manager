@@ -1,19 +1,15 @@
-
-<div id="preloder" >
-    <div class="loader"> </div>
+<div id="preloder">
+    <div class="loader"></div>
 </div>
-
-
-
-<div class="container-fluid">
+<div class="container-fluid" id="settings" style="height: 80vh">
     <div class="row">
         <div class="col-md-6 mb-4">
             <div class="card card-plain">
                 <h4 class="card-title">Selecione a loja</h4>
                 <div class="dropdown boostrap-select">
-                    <select class="selectpicker" data-style="select-with-transition" title="Single Select"
+                    <select class="selectpicker" data-style="select-with-transition" title="selecione a loja"
                             data-size="7">
-                        <option disabled>Choose city</option>
+                        <option disabled>escolha a impressora</option>
                         <% for(var i = 0; i < warehouses.length; i++) { %>
                             <option
                             <% if(localStorage.getItem('warehouse') == warehouses[i]['id']){ %> selected
@@ -28,12 +24,34 @@
             <div class="card card-plain">
                 <h4 class="card-title">Selecione a impressora</h4>
                 <div class="dropdown boostrap-select">
-                    <select class="selectpickerprinter" data-style="select-with-transition" title="Single Select"
+                    <select class="selectpickerprinter" data-style="select-with-transition"
+                            title="Selecione a impressora"
                             data-size="7">
                         <option disabled>Choose city</option>
                         <% for(var i = 0; i < printers.length; i++) { %>
-                            <option  <% if(localStorage.getItem('printer') == printers[i]['name']){ %> selected
-                                    <% } %> value="<%= printers[i]['name'] %>"><%= printers[i]['name'] %></option>
+                            <option
+                            <% if(localStorage.getItem('printer') == printers[i]['name']){ %> selected
+                                    <% } %>
+                                                                                              value="<%= printers[i]['name'] %>"><%= printers[i]['name'] %></option>
+                        <% } %>
+                    </select>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-6 mb-4">
+            <div class="card card-plain">
+                <h4 class="card-title">Selecione a impressora de bilhetes</h4>
+                <div class="dropdown boostrap-select">
+                    <select class="selectpickerticketprinter" data-style="select-with-transition"
+                            title="Selecione a impressora"
+                            data-size="7">
+                        <option disabled>Escolha a impressora</option>
+                        <% for(var i = 0; i < printers.length; i++) { %>
+                            <option
+                            <% if(localStorage.getItem('ticketPrinter') == printers[i]['name']){ %> selected
+                                    <% } %>
+                                                                                                    value="<%= printers[i]['name'] %>"><%= printers[i]['name'] %></option>
                         <% } %>
                     </select>
                 </div>
@@ -46,7 +64,8 @@
                 <div class="row">
                     <div class="col-sm-10">
                         <div class="form-group">
-                            <input type="text" id="bufferSize" name="bufferSize" class="form-control" value="<%= localStorage.getItem('bufferSize')%>">
+                            <input type="text" id="bufferSize" name="bufferSize" class="form-control"
+                                   value="<%= localStorage.getItem('bufferSize') %>">
                             <span class="form-text">Configura o espaçamento do texto na impressora</span>
                         </div>
                     </div>
@@ -55,6 +74,118 @@
 
             </div>
         </div>
+
+        <div class="col-md-6 mb-4">
+            <div class="card-title">
+                configurações de impressora de bilhetes
+            </div>
+            <div class="card card-plain">
+                <div class="row">
+                    <label class="col-md-3 col-form-label">Cima</label>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <input type="text" class="form-control margin" id="top"
+                                   value="<%= localStorage.getItem('PageTop') %>">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-md-3 col-form-label">Esquerda</label>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <input type="text" class="form-control margin" id="left"
+                                   value="<%= localStorage.getItem('PageLeft') %>">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-md-3 col-form-label">Direita</label>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <input type="text" class="form-control margin" id="right"
+                                   value="<%= localStorage.getItem('PageRight') %>">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-md-3 col-form-label">Baixo</label>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <input type="text" class="form-control margin" id="bottom"
+                                   value="<%= localStorage.getItem('PageBottom') %>">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-md-3 col-form-label">Tamanho da font</label>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <input type="text" class="form-control margin" id="font"
+                                   value="<%= localStorage.getItem('PageFont') %>">
+                        </div>
+                    </div>
+                </div>
+
+                <select name="" id="pagesize">
+                    <option
+                    <% if(localStorage.getItem('PageValue') == 'a3') { %> selected
+                            <% } %>
+                                                                          data-width="841.89" data-height="1190.55"
+                                                                          value="a3">A3
+                    </option>
+                    <option
+                    <% if(localStorage.getItem('PageValue') == 'a4') { %> selected
+                            <% } %>
+                                                                          data-width="595.28" data-height="841.89"
+                                                                          value="a4">A4
+                    </option>
+                </select>
+                <form id="uploadimg">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="fileinput text-center fileinput-new d-flex" data-provides="fileinput">
+                            <div class="fileinput-new thumbnail">
+                                <% if(localStorage.getItem('ImgBackground') == null || localStorage.getItem('ImgBackground') == undefined){ %>
+                                    <img class="d-none" id="bgimage" src="../../assets/img/image_placeholder.jpg" alt="...">
+                                <% }else{ %>
+                                    <img  class="d-none" id="bgimage" src="/images/<%= localStorage.getItem('ImgBackground') %>"
+                                         alt="...">
+                                <% } %>
+                            </div>
+                            <div class="fileinput-preview fileinput-exists thumbnail" style=""></div>
+                            <div>
+                        <span class="btn btn-rose btn-round btn-file">
+                          <span class="fileinput-new">Selecione a imagem </span>
+                          <span class="fileinput-exists">Mudar</span>
+                          <input type="hidden" value="" name="back"><input type="file" name="back">
+                        </span>
+                                <a href="#pablo" class="btn btn-danger btn-round fileinput-exists"
+                                   data-dismiss="fileinput"><i class="fa fa-times"></i> Remover</a>
+                            </div>
+
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Subir Imagem</button>
+                </form>
+
+            </div>
+        </div>
+        <div class="col-md-6 mb-4">
+            <div class="card card-plain">
+                <div id="page" style="background-color:#fff">
+                    <div id="margin" style="border: 1px solid red; width:100% ;height:100%">
+                        <div id="text" style="text-align: center">
+                            aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
     </div>
 </div>
+<script>
+    $(function() {
+        var ps1 = new PerfectScrollbar('#settings');
+    })
+</script>
 <script src="/js/settings.js"></script>
