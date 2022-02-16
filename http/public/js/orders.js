@@ -48,11 +48,9 @@ select.on('change', function () {
         success: function (response) {
             // eslint-disable-next-line no-undef
             showNotification('top', 'right', 1, 'check', response.message)
-            $('.all').slideUp('normal', function () {
-                $(this).remove().promise().then(function () {
+
                     getOrders()
-                })
-            })
+
         },
         error: function (jqXHR, exception) {
             console.log(jqXHR)
@@ -65,7 +63,12 @@ var getOrders = function () {
     $.ajax({
         url: '/getOrders/' + page,
         type: 'GET',
+        beforeSend:function(e) {
+            $('#preloder').fadeIn()
+            $('.all').remove()
+        },
         success: function (response) {
+            $('#preloder').fadeOut()
             createSections(response).then(() => {
                 populateOrders(response)
             })

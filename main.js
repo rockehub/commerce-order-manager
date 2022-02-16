@@ -4,6 +4,8 @@
  * This software may be modified and distributed under the terms
  * of the MIT license.  See the LICENSE file for details.
  */
+// todo adicionar função que cria as pastas
+
 
 // The big boy
 const electron = require('electron');
@@ -27,11 +29,11 @@ function isWindowsOrmacOS() {
 }
 
 if (require('electron-squirrel-startup')) app.quit()
-// Make sure to set the logging level to the
+
 log.transports.console.level = 'info';
 log.transports.file.level = 'info';
 
-// Helpers
+
 const os = require('os');
 const path = require('path');
 const url = require('url');
@@ -40,6 +42,29 @@ const { dialog, Notification, globalShortcut } = require("electron");
 // Name of the product, used in some app labels
 const productName = require('./package.json').productName;
 const isWindows = process.platform === "win32";
+
+var home = require("os").homedir();
+
+var fs = require('fs');
+
+var dir = home + '/Documents/COMNotesFolder/background';
+var dir2 = home + '/Documents/COMNotesFolder/files';
+
+if (process.platform === 'win32') {
+    var dir = home + '\\Documents\\COMNotesFolder\\background';
+    var dir2 = home + '\\Documents\\COMNotesFolder\\files';
+}
+
+if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir, {
+        recursive: true
+    });
+}
+if (!fs.existsSync(dir2)) {
+    fs.mkdirSync(dir2, {
+        recursive: true
+    });
+}
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -52,10 +77,9 @@ function startExpress() {
     // Create the path of the express server to pass in with the spawn call
     var webServerDirectory = path.join(__dirname, 'http', 'bin', 'www');
     log.info('starting node script: ' + webServerDirectory);
-
-    var nodePath = "C:\\Program Files\\nodejs\\node.exe";
+    var nodePath = "/usr/local/bin/node";
     if (process.platform === 'win32') {
-        // Overwrite with the windows path...only testing on mac currently
+        var nodePath = "C:\\Program Files\\nodejs\\node.exe";
     }
 
     // Optionally update environment variables used
