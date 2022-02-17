@@ -46,6 +46,7 @@ const isWindows = process.platform === "win32";
 var home = require("os").homedir();
 
 var fs = require('fs');
+const {spawn} = require("child_process");
 
 var dir = home + '/Documents/COMNotesFolder/background';
 var dir2 = home + '/Documents/COMNotesFolder/files';
@@ -78,8 +79,9 @@ function startExpress() {
     var webServerDirectory = path.join(__dirname, 'http', 'bin', 'www');
     log.info('starting node script: ' + webServerDirectory);
     var nodePath = "/usr/local/bin/node";
+
     if (process.platform === 'win32') {
-        var nodePath = "C:\\Program Files\\nodejs\\node.exe";
+        nodePath = "C:\\Program Files\\nodejs\\node.exe";
     }
 
     // Optionally update environment variables used
@@ -87,9 +89,18 @@ function startExpress() {
 
     // Start the node express server
     const spawn = require('child_process').spawn;
+if (process.platform !== 'win32'){
+    webServerDirectory = path.join(__dirname, 'http');
+    webServer =  spawn('/usr/local/bin/npm', ['start'], {
+        cwd: webServerDirectory,
+        env: env
+    });
+}else {
     webServer = spawn(nodePath, [webServerDirectory], {
         env: env
     });
+
+}
 
     // Were we successful?
     if (!webServer) {
@@ -145,7 +156,7 @@ function createWindow() {
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false,
-            devTools: isDev
+            devTools: true
         },
         frame: !isWindows //Remove frame to hide default menu
     });
@@ -371,15 +382,16 @@ function createWindow() {
     ipc.on('show_newOrder', (event, data) => {
         new Notification({ title: 'Novo Pedido', body: 'Um Novo Pedido Acabou de Chegar' }).show()
     })
-    app.on('browser-window-focus', function() {
-        globalShortcut.register('CommandOrControl+R', () => {
-            console.log('CommandOrControl+R is pressed: Shortcut Disabled')
+    if(isDev) {
+        app.on('browser-window-focus', function () {
+            globalShortcut.register('CommandOrControl+R', () => {
+                console.log('CommandOrControl+R is pressed: Shortcut Disabled')
+            })
+            globalShortcut.register('F5', () => {
+                console.log('F5 is pressed: Shortcut Disabled')
+            })
         })
-        globalShortcut.register('F5', () => {
-            console.log('F5 is pressed: Shortcut Disabled')
-        })
-    })
-
+    }
     app.on('browser-window-blur', function() {
         globalShortcut.unregister('CommandOrControl+R')
         globalShortcut.unregister('F5')
