@@ -1,5 +1,6 @@
 const express = require('express')
 const path = require('path')
+
 global.appHost = "https://mirelladoceshomolog.com.br";
 global.basicUsername = "a04afc85-d725-4679-bbfe-f9494f8d427f"
 global.basicPassword = "f0b80972-e9ee-4872-8624-5f66c4115bb6"
@@ -9,6 +10,7 @@ const logger = require('morgan')
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
 const routes = require('./routes')
+
 const app = express()
 const session = require('express-session')
 const fileUpload = require('express-fileupload');
@@ -19,6 +21,7 @@ const settingsController = require('./modules/settings/controller/settingsContro
 const ordersController = require('./modules/orders/controller/orderController')
 const consultController = require('./modules/consult/controller/consultController')
 const notifyController = require('./modules/notification/controller/notificationController')
+
 
 app.use(session({
     secret: 'akhfkahfkahfkjsdhfkashfdjk',
@@ -84,4 +87,4 @@ app.locals = {
         }
     }
 }
-module.exports = app
+module.exports = {app,localStorage}

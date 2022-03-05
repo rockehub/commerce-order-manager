@@ -19,6 +19,7 @@ const BrowserWindow = electron.BrowserWindow;
 const isDev = require('electron-is-dev')
 require('dotenv').config({ path: require('find-config')('.env') })
 const { appUpdater } = require('./autoUpdater')
+var findNodeModules = require('find-node-modules');
 
 // Setup the logging for the app to write to the console (developer tools),
 // as well as a file located at ~/Library/Logs/[productName]
@@ -46,7 +47,6 @@ const isWindows = process.platform === "win32";
 var home = require("os").homedir();
 
 var fs = require('fs');
-const {spawn} = require("child_process");
 
 var dir = home + '/Documents/COMNotesFolder/background';
 var dir2 = home + '/Documents/COMNotesFolder/files';
@@ -78,8 +78,9 @@ function startExpress() {
     // Create the path of the express server to pass in with the spawn call
     var webServerDirectory = path.join(__dirname, 'http', 'bin', 'www');
     log.info('starting node script: ' + webServerDirectory);
-    var nodePath = "/usr/local/bin/node";
 
+    var nodePath = "/usr/local/bin/node";
+    var nodePath= path.join(__dirname,'node_modules','node','bin','node')
     if (process.platform === 'win32') {
         nodePath = "C:\\Program Files\\nodejs\\node.exe";
     }
@@ -89,11 +90,15 @@ function startExpress() {
 
     // Start the node express server
     const spawn = require('child_process').spawn;
+    const exec = require('child_process').exec;
 if (process.platform !== 'win32'){
-    webServerDirectory = path.join(__dirname, 'http');
-    webServer =  spawn('/usr/local/bin/npm', ['start'], {
-        cwd: webServerDirectory,
-        env: env
+   // env = JSON.parse(JSON.stringify(process.env));
+   // webServerDirectory = path.join(__dirname, 'http');
+  //  webServer =  spawn('/usr/local/bin/npm', ['start'], {
+   //     cwd: webServerDirectory
+  //  });
+    var webServer = exec(nodePath+' '+webServerDirectory, function(err, stdout, stderr){
+       console.log(stdout);
     });
 }else {
     webServer = spawn(nodePath, [webServerDirectory], {
@@ -253,7 +258,7 @@ function createWindow() {
                 {
                     label: 'Open Log File',
                     click: function() {
-                        electron.shell.openItem(os.homedir() + '/Library/Logs/com/log.log');
+                        electron.shell.openPath(os.homedir() + '/Library/Logs/com/log.log');
                     }
                 }
             ]

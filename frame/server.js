@@ -1,10 +1,16 @@
 // Internal Dependencies
 const { ipcRenderer } = require('electron')
 const jspack = require('../package.json')
+
 global.appVersion = jspack.version
 const _ = require('lodash')
 const maxResBtn = document.getElementById('maxResBtn')
+const topBar = document.getElementById('topBar')
 let expressAppUrl = 'http://localhost:3327'
+
+if(process.platform !== 'win32'){
+    topBar.style.display = "none";
+}
 
 spanversion = document.getElementById('appVersion')
 spanversion.innerHTML = appVersion;

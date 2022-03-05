@@ -1,10 +1,13 @@
 const express = require('express')
 const Auth = require('../../../middlewares/Auth')
 const router = express.Router()
-const { LocalStorage } = require('node-localstorage')
 const { state } = require('../services/state')
 const { orders, printOrder, order, changeStatus, printNote } = require('../services/orders')
-const localStorage = new LocalStorage('../../files')
+const os = require("os");
+if (typeof localStorage === "undefined" || localStorage === null) {
+    var LocalStorage = require('node-localstorage').LocalStorage;
+    localStorage = new LocalStorage(os.homedir()+'/storage/data');
+}
 
 router.get('/orders', Auth, async function(req, res) {
     state().then((response) => {

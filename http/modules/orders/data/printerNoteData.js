@@ -2,8 +2,11 @@
 const PDFDocument = require('pdfkit')
 const fs = require('fs');
 var home = require("os").homedir();
-const { LocalStorage } = require('node-localstorage')
-const localStorage = new LocalStorage('../../files')
+const os = require("os");
+if (typeof localStorage === "undefined" || localStorage === null) {
+    var LocalStorage = require('node-localstorage').LocalStorage;
+    localStorage = new LocalStorage(os.homedir()+'/storage/data');
+}
 
 
 async function printOrderNote(order) {

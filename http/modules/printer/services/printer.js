@@ -1,8 +1,11 @@
 const ThermalPrinter = require('node-thermal-printer').printer
 const PrinterTypes = require('node-thermal-printer').types
 const nodePrinter = require('@thiagoelg/node-printer')
-const { LocalStorage } = require('node-localstorage')
-const localStorage = new LocalStorage('../../files')
+const os = require("os");
+if (typeof localStorage === "undefined" || localStorage === null) {
+    var LocalStorage = require('node-localstorage').LocalStorage;
+    localStorage = new LocalStorage(os.homedir()+'/storage/data');
+}
 const fs = require('fs');
 const { print } = require("pdf-to-printer");
 
