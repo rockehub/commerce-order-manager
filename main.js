@@ -82,7 +82,7 @@ function startExpress() {
     var nodePath = "/usr/local/bin/node";
     var nodePath= path.join(__dirname,'node_modules','node','bin','node')
     if (process.platform === 'win32') {
-        nodePath = "C:\\Program Files\\nodejs\\node.exe";
+        nodePath = path.join(__dirname,'node_modules','node','bin','node')
     }
 
     // Optionally update environment variables used
@@ -428,7 +428,10 @@ app.on('before-quit', function() {
     shuttingDown = true;
 
     // Kill the web process
-    webServer.kill();
+    if (webServer !== undefined){
+        webServer.kill()
+    }
+
 });
 
 // Quit when all windows are closed.

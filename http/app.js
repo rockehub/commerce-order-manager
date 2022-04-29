@@ -1,10 +1,10 @@
 const express = require('express')
 const path = require('path')
 
-global.appHost = "https://mirelladoceshomolog.com.br";
-global.basicUsername = "a04afc85-d725-4679-bbfe-f9494f8d427f"
-global.basicPassword = "f0b80972-e9ee-4872-8624-5f66c4115bb6"
-global.alloweDToPrepare = ['26']
+global.appHost = "https://api.mirelladoceshomolog.com.br";
+global.basicUsername = "1b58f351-ffcf-4332-bb3e-6b3628b6a208"
+global.basicPassword = "d710ba95-873d-46b7-8ccc-17801020db11"
+global.alloweDToPrepare = ['10']
 // favicon = require('serve-favicon'),
 const logger = require('morgan')
 const cookieParser = require('cookie-parser')
@@ -70,20 +70,20 @@ app.use(function (err, req, res, next) {
 app.locals = {
     customFieldValue: function (custom_field) {
         switch (custom_field.custom_field.type) {
-        case 'checkbox':
-            return custom_field.value
-        case 'dropdown':
-            return custom_field.display_value
-        case 'text':
-            return custom_field.value
-        case 'textarea':
-            return custom_field.value
-        case 'image':
-            return custom_field.display_value
-        case 'color':
-            return custom_field.display_value
-        default:
-            console.log('custom field not found: ')
+            case 'checkbox':
+                return custom_field.value
+            case 'dropdown':
+                return custom_field.display_value
+            case 'text':
+                return custom_field.value
+            case 'textarea':
+                return custom_field.value
+            case 'image':
+                return custom_field.display_value
+            case 'color':
+                return custom_field.display_value
+            default:
+                console.log('custom field not found: ')
         }
     }
 }

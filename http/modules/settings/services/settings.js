@@ -4,7 +4,7 @@ const nodePrinter = require('@thiagoelg/node-printer')
 
 
 async function warehouses() {
-    let data = await fetch(appHost + '/api/warehouses', {
+    let data = await fetch(appHost + '/warehouses', {
         method: 'GET',
         headers: {
             Authorization: 'Basic ' + base64.encode(basicUsername + ':' + basicPassword),

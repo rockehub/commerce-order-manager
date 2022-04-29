@@ -2,7 +2,7 @@ const fetch = require('node-fetch')
 const base64 = require('base-64')
 
 async function getNotify (user) {
-    let data = await fetch(appHost + '/api/notification/' + user, {
+    let data = await fetch(appHost + '/notification/' + user, {
         method: 'GET',
         headers: {
             Authorization: 'Basic ' + base64.encode(basicUsername + ':' + basicPassword),

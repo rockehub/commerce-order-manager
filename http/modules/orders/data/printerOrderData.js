@@ -19,7 +19,7 @@ function orderInfo (printer, order) {
     printer.println('Entrega: ' + order.order.shipping.method.name)
     printer.newLine()
     printer.println('MIRELLA DOCES')
-    printer.alignLeft()
+    printer.alignCenter()
     printer.print('Data do pedido: ')
     const date = new Date(order.order.created_at)
     printer.println(date.toLocaleDateString('pt-BR', {
@@ -50,7 +50,7 @@ function orderInfo (printer, order) {
                 printer.tableCustom([ // Prints table with custom settings (text, align, width, cols, bold)
                     { text: property.property.name, align: 'LEFT', width: 0.6 },
                     {
-                        text: property.value, align: 'RIGHT', width: 0.4, cols: 8
+                        text: checkValue(property.value), align: 'RIGHT', width: 0.4, cols: 8
                     }
                 ])
             })
@@ -244,6 +244,19 @@ function customFieldValue (custom_field) {
     default:
         console.log('custom field not found: ')
     }
+}
+
+function checkValue(value) {
+    if (
+        typeof value === 'object' &&
+        !Array.isArray(value) &&
+        value !== null
+    ) {
+        return  value.name
+    }else{
+        return value
+    }
+
 }
 
 module.exports = { printerOrderData }

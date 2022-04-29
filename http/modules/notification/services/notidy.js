@@ -2,7 +2,7 @@ const fetch = require('node-fetch')
 const base64 = require('base-64')
 
 async function getOrder(warehouse) {
-    let data = await fetch(appHost + '/api/monitoring/' + warehouse, {
+    let data = await fetch(appHost + '/monitoring/' + warehouse, {
         method: 'GET',
         headers: {
             Authorization: 'Basic ' + base64.encode(basicUsername + ':' + basicPassword),

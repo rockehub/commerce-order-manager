@@ -226,10 +226,23 @@ function productsPopulate (order) {
     return a
 }
 
+function checkValue(value) {
+    if (
+        typeof value === 'object' &&
+        !Array.isArray(value) &&
+        value !== null
+    ) {
+      return  value.name
+    }else{
+        return value
+    }
+
+}
+
 function appendProperties (product) {
     var property = ''
     $.each(product.property_values, function (key, value) {
-        property += '<h5 class=" card-categorytext-capitalize  mb-0 toMark ' + checklist('' + product.id + product.order_id + value.id + value.value + '') + '" style="cursor: pointer" data-mark="false" data-cookie="' + product.id + product.order_id + value.id + value.value + '">' + value.property.name + ': ' + value.value + '</h5>'
+        property += '<h5 class=" card-categorytext-capitalize  mb-0 toMark ' + checklist('' + product.id + product.order_id + value.id + value.value + '') + '" style="cursor: pointer" data-mark="false" data-cookie="' + product.id + product.order_id + value.id + value.value + '">' + value.property.name + ': ' + checkValue(value.value)   + '</h5>'
     })
     if (product.custom_field_values.length !== 0) {
         property += '<br><h5 className="card-category">Campos do Produto</h5>'

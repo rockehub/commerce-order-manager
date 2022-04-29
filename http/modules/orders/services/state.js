@@ -2,7 +2,7 @@ const fetch = require('node-fetch')
 const base64 = require('base-64')
 
 async function state () {
-    let data = await fetch(appHost + '/api/states', {
+    let data = await fetch(appHost + '/states', {
         method: 'GET',
         headers: {
             Authorization: 'Basic ' + base64.encode(basicUsername + ':' + basicPassword),
@@ -23,7 +23,7 @@ async function state () {
 }
 
 async function buttonDefinitions () {
-    let data = await fetch(appHost + '/api/buttonDefinitions', {
+    let data = await fetch(appHost + '/buttonDefinitions', {
         method: 'GET',
         headers: {
             Authorization: 'Basic ' + base64.encode(basicUsername + ':' + basicPassword),

@@ -2,7 +2,7 @@ const fetch = require('node-fetch')
 const base64 = require('base-64')
 
 async function consultOrder (order) {
-    let data = await fetch(appHost + '/api/consult', {
+    let data = await fetch(appHost + '/consult', {
         method: 'GET',
         headers: {
             Authorization: 'Basic ' + base64.encode(basicUsername + ':' + basicPassword),

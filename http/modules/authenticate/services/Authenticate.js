@@ -2,7 +2,7 @@ const fetch = require('node-fetch')
 const base64 = require('base-64')
 
 async function authenticate (data) {
-  const response = await fetch(appHost + '/api/authenticate', {
+  const response = await fetch(appHost + '/authenticate', {
     method: 'POST',
     headers: {
       Authorization: 'Basic ' + base64.encode(basicUsername + ':' + basicPassword),
@@ -24,7 +24,7 @@ async function authenticate (data) {
 }
 
 async function login (data) {
-  let response = await fetch(appHost + '/api/login', {
+  let response = await fetch(appHost + '/applogin', {
     method: 'POST',
     headers: {
       Authorization: 'Basic ' + base64.encode(basicUsername + ':' + basicPassword),
@@ -46,7 +46,7 @@ async function login (data) {
 }
 
 async function logout (data) {
-  const response = await fetch(appHost + '/api/logout', {
+  const response = await fetch(appHost + '/logout', {
     method: 'POST',
     headers: {
       Authorization: 'Basic ' + base64.encode(basicUsername + ':' + basicPassword),

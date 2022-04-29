@@ -5,7 +5,7 @@ const { printerOrderData } = require('../data/printerOrderData')
 const { printOrderNote } = require("../data/printerNoteData");
 
 async function orders(warehouse, status, page, all) {
-    let data = await fetch(appHost + '/api/orders/' + warehouse + '/{"status":' + status + '}/' + page + '/' + all, {
+    let data = await fetch(appHost + '/orders/' + warehouse + '/{"status":' + status + '}/' + page + '/' + all, {
         method: 'GET',
         headers: {
             Authorization: 'Basic ' + base64.encode(basicUsername + ':' + basicPassword),
@@ -52,7 +52,7 @@ async function printNote(order) {
 }
 
 async function order(order) {
-    let data = await fetch(appHost + '/api/order/' + order, {
+    let data = await fetch(appHost + '/order/' + order, {
         method: 'GET',
         headers: {
             Authorization: 'Basic ' + base64.encode(basicUsername + ':' + basicPassword),
@@ -73,7 +73,7 @@ async function order(order) {
 }
 
 async function changeStatus(order, state) {
-    let data = await fetch(appHost + '/api/order/' + order + '/' + state, {
+    let data = await fetch(appHost + '/order/' + order + '/' + state, {
         method: 'PUT',
         headers: {
             Authorization: 'Basic ' + base64.encode(basicUsername + ':' + basicPassword),
