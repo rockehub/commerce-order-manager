@@ -1,7 +1,7 @@
 const express = require('express')
 const path = require('path')
 
-global.appHost = "https://api.mirelladoceshomolog.com.br";
+global.appHost = "https://api.mirelladoces.com.br";
 global.basicUsername = "1b58f351-ffcf-4332-bb3e-6b3628b6a208"
 global.basicPassword = "d710ba95-873d-46b7-8ccc-17801020db11"
 global.alloweDToPrepare = ['10']
