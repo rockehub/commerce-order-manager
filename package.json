@@ -1,7 +1,7 @@
 {
   "name": "commerce-order-manager",
   "description": "Aplicação de controle de pedidos para commerce mirella",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "main": "main.js",
   "authors": [
     "Rockethub"
@@ -10,6 +10,7 @@
   "private": true,
   "scripts": {
     "start": "electron-forge start",
+    "debug": "electron-forge start --inspect-electron",
     "package": "electron-forge package",
     "make": "electron-forge make",
     "make-mac": "npx @electron-forge/cli make --platform darwin",

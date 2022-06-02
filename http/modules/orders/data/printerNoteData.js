@@ -27,11 +27,14 @@ async function printOrderNote(order) {
 
         if (product.custom_field_values.length > 0) {
             let m = product.custom_field_values.some(function(item) {
-                return item.custom_field.name === 'Bilhete'
+                if (item.custom_field.id === 5){
+                    console.log('o bilhete é'+ item.custom_field.name);
+                }
+                return item.custom_field.id === 5
             });
             if (m == true) {
                 product.custom_field_values.forEach(function(custom, i) {
-                    if (custom.custom_field.name == 'Bilhete') {
+                    if (custom.custom_field.id == 5) {
                         doc.addPage({
                             margins: {
                                 top: parseInt(localStorage.getItem('PageTop')),
