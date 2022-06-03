@@ -1,6 +1,6 @@
-const { getPrinter } = require('../../printer/services/printer')
+const {getPrinter} = require('../../printer/services/printer')
 
-async function printerOrderData (order, printOption) {
+async function printerOrderData(order, printOption) {
     const printer = await getPrinter()
     if (printOption == 1 || printOption == 2) {
         orderInfo(printer, order)
@@ -13,7 +13,7 @@ async function printerOrderData (order, printOption) {
     return printer
 }
 
-function orderInfo (printer, order) {
+function orderInfo(printer, order) {
     printer.alignCenter()
     printer.println('* * *Pedido: ' + order.order.order_number + '* * *')
     printer.println('Entrega: ' + order.order.shipping.method.name)
@@ -42,13 +42,13 @@ function orderInfo (printer, order) {
     order.order.products.forEach(function (product, i) {
         printer.drawLine()
         printer.tableCustom([ // Prints table with custom settings (text, align, width, cols, bold)
-            { text: (i + 1) + ' ' + product.name, align: 'LEFT', width: 0.6 },
-            { text: product.item.price.BRL, align: 'RIGHT', width: 0.4, cols: 8 }
+            {text: (i + 1) + ' ' + product.name, align: 'LEFT', width: 0.6},
+            {text: product.item.price.BRL, align: 'RIGHT', width: 0.4, cols: 8}
         ])
         if (product.property_values != null) {
             product.property_values.forEach(function (property, i) {
                 printer.tableCustom([ // Prints table with custom settings (text, align, width, cols, bold)
-                    { text: property.property.name, align: 'LEFT', width: 0.6 },
+                    {text: property.property.name, align: 'LEFT', width: 0.6},
                     {
                         text: checkValue(property.value), align: 'RIGHT', width: 0.4, cols: 8
                     }
@@ -84,8 +84,8 @@ function orderInfo (printer, order) {
             printer.println('Serviços')
             product.service_options.forEach(function (service_option, i) {
                 printer.tableCustom([
-                    { text: service_option.name, align: 'LEFT', width: 0.6 },
-                    { text: service_option.price_formatted, align: 'RIGHT', width: 0.4, cols: 8 }
+                    {text: service_option.name, align: 'LEFT', width: 0.6},
+                    {text: service_option.price_formatted, align: 'RIGHT', width: 0.4, cols: 8}
                 ])
             })
         }
@@ -94,19 +94,19 @@ function orderInfo (printer, order) {
             printer.alignCenter()
             printer.println('Taxas Cobradas')
             printer.tableCustom([ // Prints table with custom settings (text, align, width, cols, bold)
-                { text: 'Taxa', align: 'LEFT', width: 0.6 },
-                { text: 'Porcentagem', align: 'RIGHT', width: 0.4, cols: 8 }
+                {text: 'Taxa', align: 'LEFT', width: 0.6},
+                {text: 'Porcentagem', align: 'RIGHT', width: 0.4, cols: 8}
             ])
             product.taxes.forEach(function (taxe, i) {
                 printer.tableCustom([ // Prints table with custom settings (text, align, width, cols, bold)
-                    { text: taxe.name, align: 'LEFT', width: 0.6 },
-                    { text: taxe.percentage, align: 'RIGHT', width: 0.4, cols: 8 }
+                    {text: taxe.name, align: 'LEFT', width: 0.6},
+                    {text: taxe.percentage, align: 'RIGHT', width: 0.4, cols: 8}
                 ])
             })
         }
         printer.newLine()
         printer.tableCustom([ // Prints table with custom settings (text, align, width, cols, bold)
-            { text: 'Total de taxas', align: 'LEFT', width: 0.6 },
+            {text: 'Total de taxas', align: 'LEFT', width: 0.6},
             {
                 text: (product.total_taxes / 100).toLocaleString('pt-br', {
                     style: 'currency',
@@ -120,7 +120,7 @@ function orderInfo (printer, order) {
         printer.newLine()
         printer.println('Total do Produtos')
         printer.tableCustom([ // Prints table with custom settings (text, align, width, cols, bold)
-            { text: 'Total', align: 'LEFT', width: 0.6 },
+            {text: 'Total', align: 'LEFT', width: 0.6},
             {
                 text: (product.total_post_taxes / 100).toLocaleString('pt-br', {
                     style: 'currency',
@@ -136,7 +136,7 @@ function orderInfo (printer, order) {
     printer.println('TOTAL')
     printer.drawLine()
     printer.tableCustom([ // Prints table with custom settings (text, align, width, cols, bold)
-        { text: '| itens', align: 'LEFT', width: 0.5 },
+        {text: '| itens', align: 'LEFT', width: 0.5},
         {
             text: (order.order.total_product_post_taxes / 100).toLocaleString('pt-br', {
                 style: 'currency',
@@ -148,7 +148,7 @@ function orderInfo (printer, order) {
         }
     ])
     printer.tableCustom([ // Prints table with custom settings (text, align, width, cols, bold)
-        { text: '| Entrega', align: 'LEFT', width: 0.5 },
+        {text: '| Entrega', align: 'LEFT', width: 0.5},
         {
             text: (order.order.total_shipping_post_taxes / 100).toLocaleString('pt-br', {
                 style: 'currency',
@@ -162,7 +162,7 @@ function orderInfo (printer, order) {
     if (order.order.discounts.length > 0) {
         order.order.discounts.forEach(function (discount, i) {
             printer.tableCustom([ // Prints table with custom settings (text, align, width, cols, bold)
-                { text: '| ' + discount.discount.name, align: 'LEFT', width: 0.5 },
+                {text: '| ' + discount.discount.name, align: 'LEFT', width: 0.5},
                 {
                     text: discount.savings_formatted + ' |', align: 'RIGHT', width: 0.5, cols: 8
                 }
@@ -170,7 +170,7 @@ function orderInfo (printer, order) {
         })
     }
     printer.tableCustom([ // Prints table with custom settings (text, align, width, cols, bold)
-        { text: '| taxas totais', align: 'LEFT', width: 0.5 },
+        {text: '| taxas totais', align: 'LEFT', width: 0.5},
         {
             text: (order.order.total_taxes / 100).toLocaleString('pt-br', {
                 style: 'currency',
@@ -182,7 +182,7 @@ function orderInfo (printer, order) {
         }
     ])
     printer.tableCustom([ // Prints table with custom settings (text, align, width, cols, bold)
-        { text: '| Total', align: 'LEFT', width: 0.5 },
+        {text: '| Total', align: 'LEFT', width: 0.5},
         {
             text: (order.order.total_post_taxes / 100).toLocaleString('pt-br', {
                 style: 'currency',
@@ -197,7 +197,7 @@ function orderInfo (printer, order) {
     printer.partialCut()
 }
 
-function deliveryInfo (printer, order) {
+function deliveryInfo(printer, order) {
     printer.alignCenter()
     printer.println('Informações de entrega')
     printer.println('* * *Pedido: ' + order.order.order_number + '* * *')
@@ -225,24 +225,27 @@ function deliveryInfo (printer, order) {
     printer.println('Cidade: ' + order.order.shipping_address.city)
     printer.println('Estado: ' + order.order.shipping_address.state.name)
     printer.drawLine()
+    printer.partialCut()
 }
 
-function customFieldValue (custom_field) {
+function customFieldValue(custom_field) {
     switch (custom_field.custom_field.type) {
-    case 'checkbox':
-        return custom_field.value
-    case 'dropdown':
-        return custom_field.display_value
-    case 'text':
-        return custom_field.value
-    case 'textarea':
-        return custom_field.value
-    case 'image':
-        return custom_field.display_value
-    case 'color':
-        return custom_field.custom_field_option.name
-    default:
-        console.log('custom field not found: ')
+        case 'checkbox':
+            return custom_field.value
+        case 'dropdown':
+            return custom_field.display_value
+        case 'text':
+            return custom_field.value
+        case 'textarea':
+            return custom_field.value
+        case 'image':
+            return custom_field.display_value
+        case 'color':
+            return custom_field.custom_field_option.name
+        case 'additional':
+            return custom_field.display_value
+        default:
+            console.log('custom field not found: ')
     }
 }
 
@@ -252,11 +255,11 @@ function checkValue(value) {
         !Array.isArray(value) &&
         value !== null
     ) {
-        return  value.name
-    }else{
+        return value.name
+    } else {
         return value
     }
 
 }
 
-module.exports = { printerOrderData }
+module.exports = {printerOrderData}

@@ -82,6 +82,8 @@ app.locals = {
                 return custom_field.display_value
             case 'color':
                 return custom_field.display_value
+            case 'additional':
+                return custom_field.display_value
             default:
                 console.log('custom field not found: ')
         }

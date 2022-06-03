@@ -49,7 +49,7 @@ select.on('change', function () {
             // eslint-disable-next-line no-undef
             showNotification('top', 'right', 1, 'check', response.message)
 
-                    getOrders()
+            getOrders()
 
         },
         error: function (jqXHR, exception) {
@@ -63,7 +63,7 @@ var getOrders = function () {
     $.ajax({
         url: '/getOrders/' + page,
         type: 'GET',
-        beforeSend:function(e) {
+        beforeSend: function (e) {
             $('#preloder').fadeIn()
             $('.all').remove()
         },
@@ -99,7 +99,7 @@ var createSections = async function (orders) {
     })
 }
 
-function populateOrders (orders) {
+function populateOrders(orders) {
     $.each(orders.data, function (key, value) {
         var element = value.delivery_in + '-' + value.order.order_number
         if ($('#orders ').find('#' + value.delivery_in + ' .orders').find('#' + element).length === 0) {
@@ -162,7 +162,7 @@ function populateOrders (orders) {
     })
 }
 
-function punctualityBadge (order) {
+function punctualityBadge(order) {
     var now = new Date()
     now.setHours(0, 0, 0, 0)
     now = now.toLocaleDateString('pt-BR', {
@@ -186,7 +186,7 @@ function punctualityBadge (order) {
     return '<span class="badge badge-' + color + '">' + status + '</span>\n'
 }
 
-function punctualityStatus (order) {
+function punctualityStatus(order) {
     var now = new Date()
     now.setHours(0, 0, 0, 0)
     now = now.toLocaleDateString('pt-BR', {
@@ -206,11 +206,11 @@ function punctualityStatus (order) {
     return status
 }
 
-function periodBadge (order) {
+function periodBadge(order) {
     return '<span class="badge badge-secondary">' + order.period.name + '</span>\n'
 }
 
-function productsPopulate (order) {
+function productsPopulate(order) {
     var a = ''
     $.each(order.order.products, function (key, value) {
         a += '<tr>\n' +
@@ -232,17 +232,17 @@ function checkValue(value) {
         !Array.isArray(value) &&
         value !== null
     ) {
-      return  value.name
-    }else{
+        return value.name
+    } else {
         return value
     }
 
 }
 
-function appendProperties (product) {
+function appendProperties(product) {
     var property = ''
     $.each(product.property_values, function (key, value) {
-        property += '<h5 class=" card-categorytext-capitalize  mb-0 toMark ' + checklist('' + product.id + product.order_id + value.id + value.value + '') + '" style="cursor: pointer" data-mark="false" data-cookie="' + product.id + product.order_id + value.id + value.value + '">' + value.property.name + ': ' + checkValue(value.value)   + '</h5>'
+        property += '<h5 class=" card-categorytext-capitalize  mb-0 toMark ' + checklist('' + product.id + product.order_id + value.id + value.value + '') + '" style="cursor: pointer" data-mark="false" data-cookie="' + product.id + product.order_id + value.id + value.value + '">' + value.property.name + ': ' + checkValue(value.value) + '</h5>'
     })
     if (product.custom_field_values.length !== 0) {
         property += '<br><h5 className="card-category">Campos do Produto</h5>'
@@ -259,26 +259,29 @@ function appendProperties (product) {
     return property
 }
 
-function customFieldValue (custom_field) {
+function customFieldValue(custom_field) {
     switch (custom_field.custom_field.type) {
-    case 'checkbox':
-        return custom_field.value
-    case 'dropdown':
-        return custom_field.display_value
-    case 'text':
-        return custom_field.value
-    case 'textarea':
-        return custom_field.value
-    case 'image':
-        return custom_field.display_value
-    case 'color':
-        return custom_field.custom_field_option.name
-    default:
-        console.log('custom field not found: ')
+        case 'checkbox':
+            return custom_field.value
+        case 'dropdown':
+            return custom_field.display_value
+        case 'text':
+            return custom_field.value
+        case 'textarea':
+            return custom_field.value
+        case 'image':
+            return custom_field.display_value
+        case 'color':
+            return custom_field.custom_field_option.name
+        case 'additional':
+            return custom_field.display_value
+
+        default:
+            console.log('custom field not found: ')
     }
 }
 
-function orderButton (order) {
+function orderButton(order) {
     var a = ''
     $.ajax({
         url: '/buttonDefinitions',
@@ -301,7 +304,7 @@ function orderButton (order) {
     return a
 }
 
-function removeScheduleProduct () {
+function removeScheduleProduct() {
     $('.adiantado').slideUp('normal', function () {
         $(this).remove()
     })
@@ -339,7 +342,7 @@ $('#orders').on('click', '.changeStatus', function () {
                 $.ajax({
                     url: '/changeStatus',
                     type: 'POST',
-                    data: { order: $(this).data('order'), status: $(this).data('action') },
+                    data: {order: $(this).data('order'), status: $(this).data('action')},
                     success: function (response) {
                         showNotification('top', 'right', 1, '', response.value)
                         $('.all').slideUp('normal', function () {
@@ -382,7 +385,7 @@ $('#orders').on('click', '.print', function (e) {
             return $.ajax({
                 url: '/printOrder',
                 type: 'POST',
-                data: { order: $(this).data('order'), printerOption: login },
+                data: {order: $(this).data('order'), printerOption: login},
                 success: function (response) {
                     console.log('oba')
                 },
