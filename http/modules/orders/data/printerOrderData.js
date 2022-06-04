@@ -2,12 +2,14 @@ const {getPrinter} = require('../../printer/services/printer')
 
 async function printerOrderData(order, printOption) {
     const printer = await getPrinter()
-    if (printOption == 1 || printOption == 2) {
-        orderInfo(printer, order)
-    }
-    if (printOption == 1 || printOption == 3) {
-        deliveryInfo(printer, order)
-    }
+
+        if (printOption == 1 || printOption == 2) {
+            orderInfo(printer, order)
+        }
+        if (printOption == 1 || printOption == 3) {
+            deliveryInfo(printer, order)
+        }
+
     printer.newLine()
     printer.newLine()
     return printer
@@ -60,6 +62,18 @@ function orderInfo(printer, order) {
             printer.newLine()
             printer.println('Campos')
             product.custom_field_values.forEach(function (custom_field, i) {
+                var zero = 0;
+                var price = zero.toLocaleString('pt-br', {
+                    style: 'currency',
+                    currency: 'BRL'
+                })
+                if (custom_field.price.length > 0){
+                    price =  custom_field.price.BRL.toLocaleString('pt-br', {
+                        style: 'currency',
+                        currency: 'BRL'
+                    })
+                }
+
                 printer.tableCustom([ // Prints table with custom settings (text, align, width, cols, bold)
                     {
                         text: custom_field.custom_field.name + ': ' + customFieldValue(custom_field),
@@ -67,10 +81,7 @@ function orderInfo(printer, order) {
                         width: 0.6
                     },
                     {
-                        text: custom_field.price.BRL.toLocaleString('pt-br', {
-                            style: 'currency',
-                            currency: 'BRL'
-                        }),
+                        text: price,
                         align: 'RIGHT',
                         width: 0.4,
                         cols: 8

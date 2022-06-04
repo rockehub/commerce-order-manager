@@ -76,13 +76,17 @@ router.post('/printOrder', Auth, function(req, res) {
 
             })
         } else {
-            printOrder(response, req.body.printerOption).then((response) => {
-                if (response === true) {
-                    res.json({ value: 'Pedido Imprimido com sucesso' })
-                }
-            }).catch((response) => {
-                res.status(500).json({ error: response })
-            })
+            try {
+                printOrder(response, req.body.printerOption).then((response) => {
+                    if (response === true) {
+                        res.json({value: 'Pedido Imprimido com sucesso'})
+                    }
+                }).catch((response) => {
+                    res.status(500).json({error: response})
+                })
+            }catch (e){
+                console.log(e)
+            }
         }
     })
 })
